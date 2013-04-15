@@ -95,9 +95,11 @@ g_epoll_source_prepare (GSource *source,
 {
 	GEpollSource *self = (GEpollSource *) source;
 
+	self->revents = epoll_wait (self->epoll.fd,
+				self->events, self->nevents, 0);
 	*timeout_ = self->timeout;
 
-	return FALSE;
+	return (self->revents > 0);
 }
 
 static gboolean
