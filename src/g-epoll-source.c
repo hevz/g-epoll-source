@@ -81,12 +81,12 @@ g_epoll_source_mod_fd (GSource *source,
 
 gint
 g_epoll_source_del_fd (GSource *source,
-			gint fd, GEpollEvent *event)
+			gint fd)
 {
 	GEpollSource *self = (GEpollSource *) source;
 
 	return epoll_ctl (self->epoll.fd, EPOLL_CTL_DEL,
-				fd, event);
+				fd, NULL);
 }
 
 static gboolean
